@@ -47,7 +47,7 @@
                         "reference": null,
                         "transitTime": 26,
                         "bestTransitTime": null,
-                        "carrierReference": "",
+                        "carrierReference": "W12345",
                         "clientSpot": false,
                         "ratesOfferId": 1160528,
                         "ddSetId": null,

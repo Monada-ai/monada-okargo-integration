@@ -69,7 +69,7 @@ function DetailsCard(props) {
                 <b>Shipping window:</b> {new Date(dateStart).toLocaleDateString('en-GB')} - {new Date(dateEnd).toLocaleDateString('en-GB')}
                 {vesselName && <>{` · `}<b>Vessel:</b>{` ${vesselName}-${vesselUid}${vesselImo ? ' ' + vesselImo + '-IMO' : ''}${vesselService ? ' ' + vesselService : ''}`}</>}
                 {` · `}<b>Rate type:</b>{` ${ratesPriceType}`}
-                {ratesPriceType && ratesPriceType === 'Contract' && carrierReference && <>{` · `}<b>Contract number:</b>{` ${carrierReference}`}</>}
+                {ratesPriceType && ratesPriceType === 'Contract' && carrierReference && <>{` · `}<b>Quotation number on carrier's portal:</b>{` ${carrierReference}`}</>}
                 {` · `}<b>More info:</b>{` ${moreInfoJoined}`}
                 {moreInfoJoined.endsWith('...') && !expandText && (
                     <span style={{ cursor: 'pointer', textDecoration: 'underline', color: blue[500] }} onClick={() => setExpandText(true)}>Show more</span>

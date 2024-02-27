@@ -17,10 +17,16 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
     async function run({ sourcePort, destinationPort, products, dateBegin, dateEnd, platform }) {
         let result = null;
 
+        const jointProducts = products.map(p => CONVERT_PRODUCT_TYPE[p.type]).reduce((acc, val) => {
+            acc[val.containerType] = acc[val.containerType] || [];
+            acc[val.containerType] = acc[val.containerType].concat(val.sizeTypes);
+            return acc;
+        }, {});
+
         try {
-            result = await Promise.all(_.flatten(products.map(async (product) => {
+            result = await Promise.all(_.flatten(_.map(jointProducts, async (sizeTypes, containerType) => {
                 const result = await axios.post(serverUri, {
-                    ...CONVERT_PRODUCT_TYPE[product.type],
+                    containerType, sizeTypes,
                     chargeCriterias: null, //see Criteria
                     origin: { code: sourcePort.id },
                     destination: { code: destinationPort.id },
@@ -30,7 +36,8 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                 }, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
-                return ((result.data || {}).carrierOffers || []).map(offer => ({ product, ...offer }));
+                const _products = products.filter( p => CONVERT_PRODUCT_TYPE[p.type].containerType === containerType );
+                return ((result.data || {}).carrierOffers || []).map(offer => ({ products: _products, ...offer }));
             })));
         } catch (e) {
             if (e.response.status === 429) {
@@ -45,7 +52,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
         const offers = _.flatten(result);
 
         // Create monada rate structure from return values
-        const ret = _.flatten(offers.map(({ product, carrier, offers }) => offers.map(offer => {
+        const ret = _.flatten(_.flatten(offers.map(({ products, carrier, offers }) => products.map(product => offers.map(offer => {
             const productId = uuidv4();
             const dateBegin = new Date(offer.chargeSet.dateBegin);
             const quotValidity = new Date(offer.chargeSet.quotValidity);
@@ -53,7 +60,9 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             const transShipments = _.get(offer, 'routes[0].transShipments', []);
             const transitTime = _.get(offer, 'routes[0].transitTime', []);
             const availability = (offer.ratesAvailabilitys || [])[0] || null;
-            const charges = _.filter(offer.chargeSet.charges, charge => charge.chargeType !== 'Source' || charge.type !== 'Incl');
+            const charges = offer.chargeSet.charges
+                .filter(charge => charge.chargeType !== 'Source' || charge.type !== 'Incl')
+                .filter(charge => charge.sizeTypeId === null || charge.sizeTypeId === CONVERT_PRODUCT_TYPE[product.type].sizeTypes[0].sizeTypeId);
 
             const fields = charges.map(charge => ({ 
                 id: uuidv4(),
@@ -104,7 +113,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                     sections
                 }
             }
-        })));
+        })))));
 
         return ret;
     }

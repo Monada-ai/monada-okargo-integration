@@ -79,7 +79,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             const sections = _(fieldsGrouped).mapValues(v => ({ id: uuidv4(), title: v[0].sectionTitle, offers: [{ id: uuidv4(), fields: v.map(vv => _.pick(vv, ['id', 'title', 'type', 'values' ])) }] })).values().value();
 
             return {
-                id: `okargo-${offer.chargeSet.chargeSetId}`,
+                id: `okargo-${offer.chargeSet.chargeSetId}-${product.type}`,
                 created: now(),
                 transportationMethod: 'sea',
                 source: sourcePort,

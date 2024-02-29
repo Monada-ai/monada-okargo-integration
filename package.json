@@ -1,6 +1,6 @@
 {
     "name": "@monada-ai/monada-okargo-integration",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "description": "All that is needed to integrate Okargo into monada (server & client code)",
     "main": "./dist/",
     "publishConfig": {

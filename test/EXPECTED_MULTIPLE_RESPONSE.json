@@ -1,7 +1,8 @@
 [
   {
     "id": "okargo-37720844-20' Dry",
-    "created": 101010,
+    "type": "contract",
+    "created": 1709073168223,
     "transportationMethod": "sea",
     "source": {
       "id": "PTSIE"
@@ -1188,7 +1189,8 @@
   },
   {
     "id": "okargo-37720845-20' Dry",
-    "created": 101010,
+    "type": "contract",
+    "created": 1709073168223,
     "transportationMethod": "sea",
     "source": {
       "id": "PTSIE"
@@ -2483,7 +2485,8 @@
   },
   {
     "id": "okargo-37720844-40' Dry",
-    "created": 101010,
+    "type": "contract",
+    "created": 1709073168223,
     "transportationMethod": "sea",
     "source": {
       "id": "PTSIE"
@@ -3670,7 +3673,8 @@
   },
   {
     "id": "okargo-37720845-40' Dry",
-    "created": 101010,
+    "type": "contract",
+    "created": 1709073168223,
     "transportationMethod": "sea",
     "source": {
       "id": "PTSIE"

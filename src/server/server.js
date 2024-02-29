@@ -7,7 +7,7 @@ function ConfigurationErrorException() {}
 function InvalidTokenException() {}
 function TooManyRequestsException() {}
 
-function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Export/v2/GetOnlineCarrierOffers', uuidv4 = _uuidv4, now = () => new Date().getTime() } = {}) {
+function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Export/v2/GetOnlineCarrierOffers', uuidv4 = _uuidv4 } = {}) {
     const { token, platforms } = configuration;
 
     if (!token || !platforms) {
@@ -54,6 +54,8 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
         // Create monada rate structure from return values
         const ret = _.flatten(_.flatten(offers.map(({ products, carrier, offers }) => products.map(product => offers.map(offer => {
             const productId = uuidv4();
+            const creationDate = offer.chargeSet.creationDate;
+            const ratesPriceType = offer.chargeSet.ratesPriceType;
             const dateBegin = new Date(offer.chargeSet.dateBegin);
             const quotValidity = new Date(offer.chargeSet.quotValidity);
             const departs = _.get(offer, 'routes[0].departs', []);
@@ -80,7 +82,8 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
 
             return {
                 id: `okargo-${offer.chargeSet.chargeSetId}-${product.type}`,
-                created: now(),
+                type: ratesPriceType === 'Contract' ? 'contract' : ratesPriceType === 'Spot' ? 'spot' : null,
+                created: new Date(creationDate).getTime(),
                 transportationMethod: 'sea',
                 source: sourcePort,
                 destination: destinationPort,

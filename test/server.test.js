@@ -47,7 +47,7 @@ test('[Task] Main task returns exception if invalid token', async () => {
 
 test('[Task] Main task works', async () => {
     id = 100;
-    const server = new OkargoServer({ configuration: { token: 'TOKEN', platforms: [] }, serverUri: 'http://localhost:9999/api/Export/v2/GetOnlineCarrierOffers', uuidv4, now: () => 101010 });
+    const server = new OkargoServer({ configuration: { token: 'TOKEN', platforms: [] }, serverUri: 'http://localhost:9999/api/Export/v2/GetOnlineCarrierOffers', uuidv4 });
     const response = await run(server);
     expect(response).toEqual(EXPECTED_RESPONSE);
 });
@@ -55,7 +55,7 @@ test('[Task] Main task works', async () => {
 
 test('[Task] Main works with multiple products', async () => {
     id = 100;
-    const server = new OkargoServer({ configuration: { token: 'TOKEN', platforms: [] }, serverUri: 'http://localhost:9998/api/Export/v2/GetOnlineCarrierOffers', uuidv4, now: () => 101010 });
+    const server = new OkargoServer({ configuration: { token: 'TOKEN', platforms: [] }, serverUri: 'http://localhost:9998/api/Export/v2/GetOnlineCarrierOffers', uuidv4 });
     const response = await runMultipleProducts(server);
     expect(response).toEqual(EXPECTED_MULTIPLE_RESPONSE);
 });

@@ -1,7 +1,8 @@
 [
   {
     "id": "okargo-35400449-20' Dry",
-    "created": 101010,
+    "type": "contract",
+    "created": 1704624399240,
     "transportationMethod": "sea",
     "source": {
       "id": "PTLEI"

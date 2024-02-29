@@ -63,20 +63,16 @@ function DetailsCard(props) {
             })}
             <Box sx={{ width: '100%', paddingBottom: '20px', borderTop: '1px solid #D9D9D9' }} />
             <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap' }}>
-                {rate.type !== 'spot' && new Date(rate.offer.validFrom).getTime() > new Date().getTime() ? <><b>Valid from:</b>{` ${new Date(rate.offer.validFrom).toLocaleDateString('en-GB')}`}</> : ''}
-                {rate.type !== 'spot' && new Date(rate.offer.validFrom).getTime() <= new Date().getTime() ? <><b>Valid until:</b>{` ${new Date(rate.offer.validUntil).toLocaleDateString('en-GB')}`}</> : ''}
-                {rate.type !== 'spot' ? ' · ' : ''}
                 {rate.type !== 'spot' && <><b>Shipping window:</b> {new Date(dateStart).toLocaleDateString('en-GB')} - {new Date(dateEnd).toLocaleDateString('en-GB')}</>}
                 {rate.type !== 'spot' ? ' · ' : ''}
                 {vesselName && <><b>Vessel:</b>{` ${vesselName}-${vesselUid}${vesselImo ? ' ' + vesselImo + '-IMO' : ''}${vesselService ? ' ' + vesselService : ''}`}</>}
                 {vesselName ? ' · ' : ''}
-                <b>Rate type:</b>{` ${ratesPriceType}`}
-                {rate.type === 'contract' && carrierReference && <>{` · `}<b>Quotation number on carrier's portal:</b>{` ${carrierReference}`}</>}
-                {` · `}<b>More info:</b>{` ${moreInfoJoined}`}
+                {rate.type === 'contract' && carrierReference && <><b>Quotation number on carrier's portal:</b>{` ${carrierReference} · `}</>}
+                <b>More info:</b>{` ${moreInfoJoined} · `}
                 {moreInfoJoined.endsWith('...') && !expandText && (
                     <span style={{ cursor: 'pointer', textDecoration: 'underline', color: blue[500] }} onClick={() => setExpandText(true)}>Show more</span>
                 )}
-                {link && <>{' · '}<a href={link} target={'_blank'}>{source ? <><b>Book this rate:</b>{` ${source}`}</> : 'Book this rate'}</a>.</>}
+                {link && <>{moreInfoJoined.endsWith('...') && !expandText ? ' · ' : ''}<a href={link} target={'_blank'}>{source ? <><b>Book this rate:</b>{` ${source}`}</> : 'Book this rate'}</a>.</>}
             </Box>
         </Box>
     )

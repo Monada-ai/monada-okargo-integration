@@ -63,10 +63,10 @@ function DetailsCard(props) {
             })}
             <Box sx={{ width: '100%', paddingBottom: '20px', borderTop: '1px solid #D9D9D9' }} />
             <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap' }}>
-                {new Date(rate.offer.validFrom).getTime() > new Date().getTime() ? <><b>Valid from:</b>{` ${new Date(rate.offer.validFrom).toLocaleDateString('en-GB')}`}</> : ''}
-                {new Date(rate.offer.validFrom).getTime() <= new Date().getTime() ? <><b>Valid until:</b>{` ${new Date(rate.offer.validUntil).toLocaleDateString('en-GB')}`}</> : ''}
+                {ratesPriceType !== 'spot' && new Date(rate.offer.validFrom).getTime() > new Date().getTime() ? <><b>Valid from:</b>{` ${new Date(rate.offer.validFrom).toLocaleDateString('en-GB')}`}</> : ''}
+                {ratesPriceType !== 'spot' && new Date(rate.offer.validFrom).getTime() <= new Date().getTime() ? <><b>Valid until:</b>{` ${new Date(rate.offer.validUntil).toLocaleDateString('en-GB')}`}</> : ''}
                 {' · '}
-                <b>Shipping window:</b> {new Date(dateStart).toLocaleDateString('en-GB')} - {new Date(dateEnd).toLocaleDateString('en-GB')}
+                {ratesPriceType !== 'spot' && <><b>Shipping window:</b> {new Date(dateStart).toLocaleDateString('en-GB')} - {new Date(dateEnd).toLocaleDateString('en-GB')}</>}
                 {vesselName && <>{` · `}<b>Vessel:</b>{` ${vesselName}-${vesselUid}${vesselImo ? ' ' + vesselImo + '-IMO' : ''}${vesselService ? ' ' + vesselService : ''}`}</>}
                 {` · `}<b>Rate type:</b>{` ${ratesPriceType}`}
                 {ratesPriceType && ratesPriceType === 'Contract' && carrierReference && <>{` · `}<b>Quotation number on carrier's portal:</b>{` ${carrierReference}`}</>}

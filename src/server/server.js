@@ -81,7 +81,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             const sections = _(fieldsGrouped).mapValues(v => ({ id: uuidv4(), title: v[0].sectionTitle, offers: [{ id: uuidv4(), fields: v.map(vv => _.pick(vv, ['id', 'title', 'type', 'values' ])) }] })).values().value();
 
             return {
-                id: `okargo-${offer.chargeSet.chargeSetId}-${product.type}`,
+                id: `okargo-${offer.chargeSet.chargeSetId}-${product.type}-${uuidv4()}`,
                 type: ratesPriceType === 'Contract' ? 'contract' : ratesPriceType === 'Spot' ? 'spot' : null,
                 created: new Date(creationDate).getTime(),
                 transportationMethod: 'sea',
@@ -104,7 +104,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                     validFrom: `${dateBegin.getFullYear()}-${dateBegin.getMonth() + 1}-${dateBegin.getDate()}`,
                     validUntil: `${quotValidity.getFullYear()}-${quotValidity.getMonth() + 1}-${quotValidity.getDate()}`,
                     transitTime,
-                    transitDates: departs.map(d => ({
+                    transitDates: departs.filter(d => d.source !== 'SchedulesApi').map(d => ({
                         etd: d.etd.replace(/T\d\d:\d\d:\d\dZ/, ''),
                         eta: d.eta.replace(/T\d\d:\d\d:\d\dZ/, ''),
                     })),
@@ -118,7 +118,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             }
         })))));
 
-        return ret;
+        return ret.filter(r => r.offer.transitDates.length > 0);
     }
 
     this.run = run;

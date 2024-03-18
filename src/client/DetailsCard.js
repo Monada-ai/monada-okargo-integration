@@ -14,7 +14,7 @@ import { useDrag } from 'react-dnd'
 import CurrencyList from 'currency-list';
 
 function DetailsCard(props) {
-    const { rate, toggleFavorite, isFavorite, emphasize, routeIndex = 0, departIndex = 0 } = props;
+    const { rate, toggleFavorite, isFavorite, emphasize, routeIndex = 0, departIndex = 0, onStartDragging, onEndDragging } = props;
     const [ expandText, setExpandText ] = useState(false);
 
     const attributes = _.get(rate, 'attributes.okargoOffer');
@@ -54,7 +54,15 @@ function DetailsCard(props) {
                             {section.offers[0].fields.map(field => {
                                 const value = _.values(field.values)[0];
                                 return (
-                                    <OkargoSingleFieldDetails key={field.id} rate={rate} field={field} value={value} emphasize={!!(emphasize || []).find(e => e.rateId === rate.id && e.fieldId === field.id)}/>
+                                    <OkargoSingleFieldDetails
+                                        key={field.id}
+                                        rate={rate}
+                                        field={field}
+                                        value={value}
+                                        emphasize={!!(emphasize || []).find(e => e.rateId === rate.id && e.fieldId === field.id)}
+                                        onStartDragging={onStartDragging}
+                                        onEndDragging={onEndDragging}
+                                    />
                                 )
                             })}
                         </Box>
@@ -79,17 +87,20 @@ function DetailsCard(props) {
 }
 
 function OkargoSingleFieldDetails(props) {
-    const { rate, field, value, emphasize } = props;
+    const { rate, field, value, emphasize, onStartDragging, onEndDragging } = props;
 
     const [, drag] = useDrag(() => ({
         type: 'RateCardSingleRate',
-        item: {
-            rate,
-            field,
+        item: () => {
+            onStartDragging();
+            return { rate, field };
         },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
-        })
+        }),
+        end: () => {
+            onEndDragging();
+        }
     }))
 
     if ((field.type !== 'per-unit') && (field.type !== 'per-unit-type') && (field.type !== 'flat') && (field.type !== 'custom')) return null;

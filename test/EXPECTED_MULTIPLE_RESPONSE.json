@@ -1,6 +1,7 @@
 [
     {
         "id": "okargo-37720844-20' Dry-120",
+        "notes": "",
         "type": "contract",
         "created": 1709073168223,
         "transportationMethod": "sea",
@@ -1189,6 +1190,7 @@
     },
     {
         "id": "okargo-37720845-20' Dry-141",
+        "notes": "Those charges are listed as Destination/Origin, charges: PORT SECURITY: 30 BRL,PORT SECURITY: 15 EUR,Free time: POL: DET/DEM 7-12 Cal 20 EUR/Ctr,DET/DEM 13< Cal 40 EUR/Ctr   POD: DET/DEM 7-11 Cal 45 USD/Ctr, DET/DEM 12< Cal 90 USD/Ctr",
         "type": "contract",
         "created": 1709073168223,
         "transportationMethod": "sea",
@@ -2249,7 +2251,28 @@
                         ]
                     }
                 ],
-                "offerInformations": [],
+                "offerInformations": [
+                    {
+                        "offerInformationId": 14915827,
+                        "enabled": true,
+                        "source": "Carrier",
+                        "content": "Those charges are listed as Destination/Origin, charges: PORT SECURITY: 30 BRL,PORT SECURITY: 15 EUR",
+                        "level": "High",
+                        "creationDate": "2024-01-07T10:46:39.2401409Z",
+                        "workDocumentsId": null,
+                        "chargeSetId": 35400449
+                    },
+                    {
+                        "offerInformationId": 14915828,
+                        "enabled": true,
+                        "source": "Carrier",
+                        "content": "Free time: POL: DET/DEM 7-12 Cal 20 EUR/Ctr,DET/DEM 13< Cal 40 EUR/Ctr   POD: DET/DEM 7-11 Cal 45 USD/Ctr, DET/DEM 12< Cal 90 USD/Ctr",
+                        "level": "High",
+                        "creationDate": "2024-01-07T10:46:39.2401428Z",
+                        "workDocumentsId": null,
+                        "chargeSetId": 35400449
+                    }
+                ],
                 "ratesOffer": {
                     "ratesOfferId": 1160528,
                     "firmId": 2309,
@@ -2485,6 +2508,7 @@
     },
     {
         "id": "okargo-37720844-40' Dry-162",
+        "notes": "",
         "type": "contract",
         "created": 1709073168223,
         "transportationMethod": "sea",
@@ -3673,6 +3697,7 @@
     },
     {
         "id": "okargo-37720845-40' Dry-183",
+        "notes": "Those charges are listed as Destination/Origin, charges: PORT SECURITY: 30 BRL,PORT SECURITY: 15 EUR,Free time: POL: DET/DEM 7-12 Cal 20 EUR/Ctr,DET/DEM 13< Cal 40 EUR/Ctr   POD: DET/DEM 7-11 Cal 45 USD/Ctr, DET/DEM 12< Cal 90 USD/Ctr",
         "type": "contract",
         "created": 1709073168223,
         "transportationMethod": "sea",
@@ -4733,7 +4758,28 @@
                         ]
                     }
                 ],
-                "offerInformations": [],
+                "offerInformations": [
+                    {
+                        "offerInformationId": 14915827,
+                        "enabled": true,
+                        "source": "Carrier",
+                        "content": "Those charges are listed as Destination/Origin, charges: PORT SECURITY: 30 BRL,PORT SECURITY: 15 EUR",
+                        "level": "High",
+                        "creationDate": "2024-01-07T10:46:39.2401409Z",
+                        "workDocumentsId": null,
+                        "chargeSetId": 35400449
+                    },
+                    {
+                        "offerInformationId": 14915828,
+                        "enabled": true,
+                        "source": "Carrier",
+                        "content": "Free time: POL: DET/DEM 7-12 Cal 20 EUR/Ctr,DET/DEM 13< Cal 40 EUR/Ctr   POD: DET/DEM 7-11 Cal 45 USD/Ctr, DET/DEM 12< Cal 90 USD/Ctr",
+                        "level": "High",
+                        "creationDate": "2024-01-07T10:46:39.2401428Z",
+                        "workDocumentsId": null,
+                        "chargeSetId": 35400449
+                    }
+                ],
                 "ratesOffer": {
                     "ratesOfferId": 1160528,
                     "firmId": 2309,

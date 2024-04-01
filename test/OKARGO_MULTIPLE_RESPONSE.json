@@ -2047,7 +2047,28 @@
               ]
             }
           ],
-          "offerInformations": [],
+          "offerInformations": [
+              {
+                  "offerInformationId": 14915827,
+                  "enabled": true,
+                  "source": "Carrier",
+                  "content": "Those charges are listed as Destination/Origin, charges: PORT SECURITY: 30 BRL,PORT SECURITY: 15 EUR",
+                  "level": "High",
+                  "creationDate": "2024-01-07T10:46:39.2401409Z",
+                  "workDocumentsId": null,
+                  "chargeSetId": 35400449
+              },
+              {
+                  "offerInformationId": 14915828,
+                  "enabled": true,
+                  "source": "Carrier",
+                  "content": "Free time: POL: DET/DEM 7-12 Cal 20 EUR/Ctr,DET/DEM 13< Cal 40 EUR/Ctr   POD: DET/DEM 7-11 Cal 45 USD/Ctr, DET/DEM 12< Cal 90 USD/Ctr",
+                  "level": "High",
+                  "creationDate": "2024-01-07T10:46:39.2401428Z",
+                  "workDocumentsId": null,
+                  "chargeSetId": 35400449
+              }
+          ],
           "ratesOffer": {
             "ratesOfferId": 1160528,
             "firmId": 2309,

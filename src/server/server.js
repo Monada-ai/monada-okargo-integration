@@ -62,6 +62,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             const transShipments = _.get(offer, 'routes[0].transShipments', []);
             const transitTime = _.get(offer, 'routes[0].transitTime', []);
             const availability = (offer.ratesAvailabilitys || [])[0] || null;
+            const moreInfo = _.get(offer, 'offerInformations', []); 
             const charges = offer.chargeSet.charges
                 .filter(charge => charge.chargeType !== 'Source' || charge.type !== 'Incl')
                 .filter(charge => charge.sizeTypeId === null || charge.sizeTypeId === CONVERT_PRODUCT_TYPE[product.type].sizeTypes[0].sizeTypeId);
@@ -114,7 +115,8 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                     },
                     transshipment: transShipments.map(t => t.unLocode).join(', '),
                     sections
-                }
+                },
+                notes: moreInfo.map(o => o.content).join(','),
             }
         })))));
 

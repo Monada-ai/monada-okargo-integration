@@ -7,7 +7,7 @@ function ConfigurationErrorException() {}
 function InvalidTokenException() {}
 function TooManyRequestsException() {}
 
-function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Export/v2/GetOnlineCarrierOffers', uuidv4 = _uuidv4 } = {}) {
+function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Export/v2/GetOnlineCarrierOffers', uuidv4 = _uuidv4, verbose = false } = {}) {
     const { token, platforms } = configuration;
 
     if (!token || !platforms) {
@@ -25,15 +25,23 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
 
         try {
             result = await Promise.all(_.flatten(_.map(jointProducts, async (sizeTypes, containerType) => {
-                const result = await axios.post(serverUri, {
+                const body = {
                     containerType, sizeTypes,
                     chargeCriterias: null, //see Criteria
+                    OriginShippingType: sourcePort.type === 'unlocode' ? 'door' : 'Cy',
+                    DestinationShippingType: destinationPort.type === 'unlocode' ? 'door' : 'Cy',
                     origin: { code: sourcePort.id },
                     destination: { code: destinationPort.id },
                     dateBegin: new Date(dateBegin).toISOString(),
                     dateEnd: new Date(dateEnd).toISOString(),
                     ratesFetcher: OKARGO_PLATFORMS[platform].code,
-                }, {
+                };
+
+                if (verbose) {
+                    console.log('OKargo request:', serverUri, body);
+                }
+
+                const result = await axios.post(serverUri, body, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 const _products = products.filter( p => CONVERT_PRODUCT_TYPE[p.type].containerType === containerType );

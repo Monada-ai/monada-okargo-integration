@@ -143,10 +143,13 @@ const CONVERT_PRODUCT_TYPE = {
     '40\' Dry': { containerType: 'Dry', sizeTypes: [ { sizeTypeId: 2, name: '40DRY' } ] },
     '40\' Flat': { containerType: 'Fl', sizeTypes: [ { sizeTypeId: 12, name: '40FL' } ] },
     '40\' Open Top': { containerType: 'Ot', sizeTypes: [ { sizeTypeId: 10, name: '40OT' } ] },
+    '40\' Reefer': { containerType: 'Rf', sizeTypes: [ { sizeTypeId: 5, name: '40RF' } ] },
     '40\' HC Dry': { containerType: 'Dry', sizeTypes: [ { sizeTypeId: 3, name: '40HC' } ] },
     '40\' HC Flat': { containerType: 'Fl', sizeTypes: [ { sizeTypeId: 15, name: '40HF' } ] },
     '40\' HC Open Top': { containerType: 'Ot', sizeTypes: [ { sizeTypeId: 14, name: '40HO' } ] },
     '40\' HC Reefer': { containerType: 'Rf', sizeTypes: [ { sizeTypeId: 6, name: '40RF' } ] },
+    '45\' HC Dry': { containerType: 'Dry', sizeTypes: [ { sizeTypeId: 7, name: '45HC' } ] },
+    '45\' HC Reefer': { containerType: 'Rf', sizeTypes: [ { sizeTypeId: 8, name: '45HR' } ] },
 }
 
 module.exports = { Server, ConfigurationErrorException, InvalidTokenException, TooManyRequestsException };

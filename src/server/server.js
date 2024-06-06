@@ -104,9 +104,8 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                     okargoOffer: offer,
                 },
                 product: {
+                    ...product,
                     id: productId,
-                    type: product.type,
-                    dangerous: product.dangerous,
                     quantity: 1,
                 },
                 offer: {

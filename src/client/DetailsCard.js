@@ -34,6 +34,7 @@ function DetailsCard(props) {
     const moreInfo = _.get(attributes, 'offerInformations', []); 
     const source = _.get(attributes, 'ratesOffer.shortName', '');
     const link = _.get(attributes, 'chargeSet.deepLink', '');
+    const ddSetCharges = _.get(attributes, 'ddSet.charges', []);
 
     let moreInfoJoined = moreInfo.map(o => o.content).join(',');
     if (moreInfoJoined.length > 20 && !expandText) {
@@ -69,6 +70,20 @@ function DetailsCard(props) {
                     </Box>
                 );
             })}
+            <Box sx={{ width: '100%', paddingBottom: '20px', borderTop: '1px solid #D9D9D9' }} />
+            <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap', fontWeight: 800 }}>
+                Detention & Demurrage:
+            </Box>
+            {_.uniq(ddSetCharges.map(charge => charge.application)).map(application => (
+                <Box key={application} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 800, marginBottom: '12px' }}>
+                    {application}:
+                    {ddSetCharges.filter(charge => charge.application === application).map(charge => (
+                        <Box key={charge.fromDay} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 400 }}>
+                            {charge.fromDay} - {charge.untilDay}: {charge.amount === 0 ? 'Free' : `${charge.currencyId && CURRENCY_ID_TO_SYMBOL[charge.currencyId] && CurrencyList.get(CURRENCY_ID_TO_SYMBOL[charge.currencyId]).symbol}${charge.amount.toLocaleString(undefined, {minimumFractionDigits: 2})} per ${DDSET_UNIT[(charge.unit || '').toLowerCase()] || charge.unit} per ${DDSET_DAYCOUNT[(charge.dayCountCategory || '').toLowerCase()] || charge.dayCountCategory}`}
+                        </Box>
+                    ))}
+                </Box>
+            ))}
             <Box sx={{ width: '100%', paddingBottom: '20px', borderTop: '1px solid #D9D9D9' }} />
             <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap' }}>
                 {rate.type !== 'spot' && <><b>Shipping window:</b> {new Date(dateStart).toLocaleDateString('en-GB')} - {new Date(dateEnd).toLocaleDateString('en-GB')}</>}
@@ -158,3 +173,172 @@ function OkargoSingleFieldDetails(props) {
 }
 
 export default DetailsCard;
+
+const CURRENCY_ID_TO_SYMBOL = {
+    1: 'EUR',
+    2: 'USD',
+    3: 'AUD',
+    4: 'BRL',
+    5: 'MYR',
+    6: 'GBP',
+    7: 'INR',
+    8: 'CNY',
+    9: 'HKD',
+    10: 'TWD',
+    11: 'NZD',
+    12: 'CAD',
+    13: 'KRW',
+    14: 'KWD',
+    15: 'NOK',
+    16: 'THB',
+    17: 'AED',
+    18: 'MUR',
+    19: 'MAD',
+    20: 'JOD',
+    21: 'XAF',
+    22: 'GNF',
+    23: 'TND',
+    24: 'SEK',
+    25: 'ZAR',
+    26: 'OMR',
+    27: 'QAR',
+    28: 'JPY',
+    29: 'PHP',
+    30: 'SGD',
+    31: 'VND',
+    32: 'XOF',
+    33: 'BND',
+    34: 'XPF',
+    35: 'FJD',
+    36: 'SAR',
+    37: 'IDR',
+    38: 'BHD',
+    39: 'CVE',
+    40: 'MMK',
+    41: 'NGN',
+    42: 'SDG',
+    43: 'DZD',
+    44: 'EGP',
+    45: 'LKR',
+    46: 'DKK',
+    47: 'MXN',
+    48: 'AOA',
+    49: 'PKR',
+    50: 'CHF',
+    51: 'PGK',
+    52: 'TOP',
+    53: 'DJF',
+    54: 'MRU',
+    55: 'ALL',
+    56: 'ANG',
+    57: 'ARS',
+    58: 'AWG',
+    59: 'AZN',
+    60: 'BBD',
+    61: 'BDT',
+    62: 'BGN',
+    63: 'BMD',
+    64: 'BOB',
+    65: 'BSD',
+    66: 'BZD',
+    67: 'CDF',
+    68: 'CLP',
+    69: 'COP',
+    70: 'CRC',
+    71: 'CUP',
+    72: 'CZK',
+    73: 'DOP',
+    74: 'ERN',
+    75: 'GEL',
+    76: 'GHS',
+    77: 'GMD',
+    78: 'GTQ',
+    79: 'GYD',
+    80: 'HNL',
+    81: 'HRK',
+    82: 'HTG',
+    83: 'ILS',
+    84: 'IQD',
+    85: 'IRR',
+    86: 'ISK',
+    87: 'JMD',
+    88: 'KES',
+    89: 'KHR',
+    90: 'KMF',
+    91: 'KPW',
+    92: 'KYD',
+    93: 'LBP',
+    94: 'LRD',
+    95: 'LSL',
+    96: 'LYD',
+    97: 'MDL',
+    98: 'MGA',
+    99: 'MNT',
+    100: 'MOP',
+    101: 'MRO',
+    102: 'MVR',
+    103: 'MZN',
+    104: 'NIO',
+    105: 'PAB',
+    106: 'PEN',
+    107: 'PLN',
+    108: 'PYG',
+    109: 'RON',
+    110: 'RUB',
+    111: 'RWF',
+    112: 'SBD',
+    113: 'SCR',
+    114: 'SLL',
+    115: 'SOS',
+    116: 'SRD',
+    117: 'STD',
+    118: 'SYP',
+    119: 'TRY',
+    120: 'TTD',
+    121: 'TZS',
+    122: 'UAH',
+    123: 'UYU',
+    124: 'VEF',
+    125: 'VUV',
+    126: 'WST',
+    127: 'XCD',
+    128: 'YER',
+    129: 'BWP',
+    130: 'MWK',
+    131: 'UGX',
+    132: 'ZMW',
+    133: 'ZWL',
+    134: 'BIF',
+    135: 'NAD',
+    136: 'HUF',
+    137: 'LAK',
+    138: 'NPR',
+    139: 'RSD',
+    140: 'SZL',
+    141: 'MKD',
+    142: 'KGS',
+    143: 'BYN',
+    144: 'UZS',
+    145: 'ETB',
+    146: 'AMD',
+    147: 'KZT',
+    148: 'BAM',
+    149: 'RMB',
+};
+
+const DDSET_UNIT = {
+    ctr: 'container',
+    specific: 'container',
+    teu: 'TEU',
+    bl: 'bill of Lading',
+    cbm: 'cubic meter',
+    ton: 'ton',
+    wm: 'weight or measurement',
+    decl: 'declared value',
+    trans: 'transshipment',
+};
+
+const DDSET_DAYCOUNT = {
+    wrk: 'business day',
+    cal: 'calendar day',
+};

@@ -74,16 +74,24 @@ function DetailsCard(props) {
             <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap', fontWeight: 800 }}>
                 Detention & Demurrage:
             </Box>
-            {_.uniq(ddSetCharges.map(charge => charge.application)).map(application => (
-                <Box key={application} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 800, marginBottom: '12px' }}>
-                    {application}:
-                    {ddSetCharges.filter(charge => charge.application === application).map(charge => (
-                        <Box key={charge.fromDay} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 400 }}>
-                            {charge.fromDay}{charge.untilDay ? ` - ${charge.untilDay}` : '+'}: {charge.amount === 0 ? 'Free' : `${charge.currencyId && CURRENCY_ID_TO_SYMBOL[charge.currencyId] && CurrencyList.get(CURRENCY_ID_TO_SYMBOL[charge.currencyId]).symbol}${charge.amount.toLocaleString(undefined, {minimumFractionDigits: 2})} per ${DDSET_UNIT[(charge.unit || '').toLowerCase()] || charge.unit} per ${DDSET_DAYCOUNT[(charge.dayCountCategory || '').toLowerCase()] || charge.dayCountCategory}`}
+            {(() => {
+                const sizeBasedCharges = ddSetCharges.filter(charge => !charge.sizeTypeId || CONVERT_PRODUCT_TYPE[rate.product.type] === charge.sizeTypeId);
+                const applications = _.uniq(sizeBasedCharges.map(charge => charge.application));
+                return _.flatten(applications.map(application => {
+                    const applicationCharges = sizeBasedCharges.filter(charge => charge.application === application);
+                    const ddChargeNameIds = _.uniq(applicationCharges.map(charge => charge.ddChargeNameId));
+                    return ddChargeNameIds.map(ddChargeNameId => (
+                        <Box key={`${application}-${ddChargeNameId}`} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 800, marginBottom: '12px' }}>
+                            {application} {DDChargeIdToName[ddChargeNameId.toLowerCase()] || ddChargeNameId}:
+                            {applicationCharges.map(charge => (
+                                <Box key={charge.fromDay} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 400 }}>
+                                    {charge.fromDay}{charge.untilDay ? ` - ${charge.untilDay}` : '+'}: {charge.amount === 0 ? 'Free' : `${charge.currencyId && CURRENCY_ID_TO_SYMBOL[charge.currencyId] && CurrencyList.get(CURRENCY_ID_TO_SYMBOL[charge.currencyId]).symbol}${charge.amount.toLocaleString(undefined, {minimumFractionDigits: 2})} per ${DDSET_UNIT[(charge.unit || '').toLowerCase()] || charge.unit} per ${DDSET_DAYCOUNT[(charge.dayCountCategory || '').toLowerCase()] || charge.dayCountCategory}`}
+                                </Box>
+                            ))}
                         </Box>
-                    ))}
-                </Box>
-            ))}
+                    ));
+                }))
+            })()}
             <Box sx={{ width: '100%', paddingBottom: '20px', borderTop: '1px solid #D9D9D9' }} />
             <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap' }}>
                 {rate.type !== 'spot' && <><b>Shipping window:</b> {new Date(dateStart).toLocaleDateString('en-GB')} - {new Date(dateEnd).toLocaleDateString('en-GB')}</>}
@@ -341,4 +349,30 @@ const DDSET_UNIT = {
 const DDSET_DAYCOUNT = {
     wrk: 'business day',
     cal: 'calendar day',
+};
+
+const CONVERT_PRODUCT_TYPE = {
+    '20\' Dry':  1,
+    '20\' Flat':  11,
+    '20\' Open Top': 9,
+    '20\' Reefer':  4,
+    '40\' Dry':  2,
+    '40\' Flat':  12,
+    '40\' Open Top':  10,
+    '40\' Reefer':  5,
+    '40\' HC Dry':  3,
+    '40\' HC Flat':  15,
+    '40\' HC Open Top':  14,
+    '40\' HC Reefer':  6,
+    '45\' HC Dry':  7,
+    '45\' HC Reefer':  8,
+}
+
+const DDChargeIdToName = {
+    detention: 'Detention',
+    demurage: 'Demurrage',
+    detanddemcomplete: 'Detention & Demurrage',
+    plugin: 'PlugIn',
+    bt: 'BT (Berth Throughput)',
+    chassis: 'Chassis',
 };

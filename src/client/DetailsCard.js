@@ -83,7 +83,7 @@ function DetailsCard(props) {
                     return ddChargeNameIds.map(ddChargeNameId => (
                         <Box key={`${application}-${ddChargeNameId}`} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 800, marginBottom: '12px' }}>
                             {application} {DDChargeIdToName[ddChargeNameId.toLowerCase()] || ddChargeNameId}:
-                            {applicationCharges.map(charge => (
+                            {applicationCharges.filter(a => a.ddChargeNameId === ddChargeNameId).map(charge => (
                                 <Box key={charge.fromDay} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 400 }}>
                                     {charge.fromDay}{charge.untilDay ? ` - ${charge.untilDay}` : '+'}: {charge.amount === 0 ? 'Free' : `${charge.currencyId && CURRENCY_ID_TO_SYMBOL[charge.currencyId] && CurrencyList.get(CURRENCY_ID_TO_SYMBOL[charge.currencyId]).symbol}${charge.amount.toLocaleString(undefined, {minimumFractionDigits: 2})} per ${DDSET_UNIT[(charge.unit || '').toLowerCase()] || charge.unit} per ${DDSET_DAYCOUNT[(charge.dayCountCategory || '').toLowerCase()] || charge.dayCountCategory}`}
                                 </Box>

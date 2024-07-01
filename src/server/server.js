@@ -44,13 +44,18 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                 const result = await axios.post(serverUri, body, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
+
+                if (!_.isEmpty(result?.data?.errorByFetcherCode)) {
+                    throw new Error(_.values(result.data.errorByFetcherCode)[0]);
+                }
+
                 const _products = products.filter( p => CONVERT_PRODUCT_TYPE[p.type].containerType === containerType );
                 return ((result.data || {}).carrierOffers || []).map(offer => ({ products: _products, ...offer }));
             })));
         } catch (e) {
-            if (e.response.status === 429) {
+            if (e.response?.status === 429) {
                 throw new TooManyRequestsException();
-            } else if (e.response.status === 401) {
+            } else if (e.response?.status === 401) {
                 throw new InvalidTokenException();
             } else {
                 throw e;

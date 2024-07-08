@@ -82,7 +82,7 @@ function DetailsCard(props) {
                     const ddChargeNameIds = _.uniq(applicationCharges.map(charge => charge.ddChargeNameId));
                     return ddChargeNameIds.map(ddChargeNameId => (
                         <Box key={`${application}-${ddChargeNameId}`} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 800, marginBottom: '12px' }}>
-                            {application} {DDChargeIdToName[ddChargeNameId.toLowerCase()] || ddChargeNameId}:
+                            {application} {DDChargeIdToName[('' + ddChargeNameId).toLowerCase()] || ddChargeNameId}:
                             {applicationCharges.filter(a => a.ddChargeNameId === ddChargeNameId).map(charge => (
                                 <Box key={charge.fromDay} sx={{ fontSize: '12px', whiteSpace: 'pre-wrap', fontWeight: 400 }}>
                                     {charge.fromDay}{charge.untilDay ? ` - ${charge.untilDay}` : '+'}: {charge.amount === 0 ? 'Free' : `${charge.currencyId && CURRENCY_ID_TO_SYMBOL[charge.currencyId] && CurrencyList.get(CURRENCY_ID_TO_SYMBOL[charge.currencyId]).symbol}${charge.amount.toLocaleString(undefined, {minimumFractionDigits: 2})} per ${DDSET_UNIT[(charge.unit || '').toLowerCase()] || charge.unit} per ${DDSET_DAYCOUNT[(charge.dayCountCategory || '').toLowerCase()] || charge.dayCountCategory}`}
@@ -375,4 +375,10 @@ const DDChargeIdToName = {
     plugin: 'PlugIn',
     bt: 'BT (Berth Throughput)',
     chassis: 'Chassis',
+    1: 'Detention',
+    2: 'Demurrage',
+    3: 'Detention & Demurrage',
+    4: 'PlugIn',
+    5: 'BT (Berth Throughput)',
+    6: 'Chassis',
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 // MUI imports
 import Box from '@mui/material/Box';
@@ -45,31 +45,16 @@ function DetailsCard(props) {
 
     return (
         <Box>
-            {rate.offer.sections.map(section => {
-                return (
-                    <Box key={section.title} sx={{ marginBottom: '20px' }}>
-                        <Box sx={{ fontWeight: 400, fontSize: '13px', textTransform: 'uppercase', marginBottom: '32px' }}>
-                            {section.title}
-                        </Box>
-                        <Box sx={{ display: 'flex', marginTop: '12px', flexWrap: 'wrap' }}>
-                            {section.offers[0].fields.map(field => {
-                                const value = _.values(field.values)[0];
-                                return (
-                                    <OkargoSingleFieldDetails
-                                        key={field.id}
-                                        rate={rate}
-                                        field={field}
-                                        value={value}
-                                        emphasize={!!(emphasize || []).find(e => e.rateId === rate.id && e.fieldId === field.id)}
-                                        onStartDragging={onStartDragging}
-                                        onEndDragging={onEndDragging}
-                                    />
-                                )
-                            })}
-                        </Box>
-                    </Box>
-                );
-            })}
+            {rate.offer.sections.map(section => (
+                <SectionDetails
+                    key={`${section.title}-${section.id}`}
+                    section={section}
+                    rate={rate}
+                    emphasize={emphasize}
+                    onStartDragging={onStartDragging}
+                    onEndDragging={onEndDragging}
+                />
+            ))}
             <Box sx={{ width: '100%', paddingBottom: '20px', borderTop: '1px solid #D9D9D9' }} />
             <Box sx={{ fontSize: '13px', whiteSpace: 'pre-wrap', fontWeight: 800 }}>
                 Detention & Demurrage:
@@ -181,6 +166,74 @@ function OkargoSingleFieldDetails(props) {
 }
 
 export default DetailsCard;
+
+function SectionDetails(props) {
+    const { section, rate, onStartDragging, onEndDragging, emphasize } = props;
+
+    const _rate = useRef(rate);
+    _rate.current = rate;
+
+    const [, drag] = useDrag(() => ({
+        type: 'RateCardSingleSection',
+        item: () => {
+            onStartDragging();
+            const noZeroFieldsRate = _.cloneDeep(_rate.current);
+            noZeroFieldsRate.offer.sections = noZeroFieldsRate.offer.sections.map(section => {
+                section.offers = section.offers.map(offer => {
+                    offer.fields = offer.fields.filter(f => {
+                        if (f.type === 'flat') {
+                            return !!f.values.flat.value || !!f.values.flat.formula;
+                        } if (f.type === 'string') {
+                            return !!f.values.string.value;
+                        } else {
+                            return f.values[rate.product.id].value || f.values[rate.product.id].formula;
+                        }
+                        return f;
+                    })
+                    return offer;
+                })
+                return section;
+            });
+
+            return { rate: noZeroFieldsRate, section };
+        },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        }),
+        end: () => {
+            onEndDragging();
+        }
+    }))
+
+    return (
+        <Box key={section.title} sx={{ marginBottom: '20px', background: 'white', padding: '12px' }} ref={drag}>
+            <Box sx={{ fontWeight: 400, fontSize: '13px', textTransform: 'uppercase', marginBottom: '32px', display: 'flex', alignItems: 'center', cursor: 'move' }}>
+                <Box sx={{ fontSize: '18px', marginRight: '12px' }}>
+                    <FontAwesomeIcon icon={faGripDotsVertical} />
+                </Box>
+                <Box>
+                    {section.title}
+                </Box>
+            </Box>
+            <Box sx={{ display: 'flex', marginTop: '12px', flexWrap: 'wrap' }}>
+                {section.offers[0].fields.map(field => {
+                    const value = _.values(field.values)[0];
+                    return (
+                        <OkargoSingleFieldDetails
+                            key={field.id}
+                            rate={rate}
+                            field={field}
+                            value={value}
+                            emphasize={!!(emphasize || []).find(e => e.rateId === rate.id && e.fieldId === field.id)}
+                            onStartDragging={onStartDragging}
+                            onEndDragging={onEndDragging}
+                        />
+                    )
+                })}
+            </Box>
+        </Box>
+    );
+}
 
 const CURRENCY_ID_TO_SYMBOL = {
     1: 'EUR',

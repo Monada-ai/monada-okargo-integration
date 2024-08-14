@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 // MUI imports
 import Box from '@mui/material/Box';
 import { grey, blue } from '@mui/material/colors';
+import Switch from '@mui/material/Switch';
 
 // Font Awesome import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +15,7 @@ import { useDrag } from 'react-dnd'
 import CurrencyList from 'currency-list';
 
 function DetailsCard(props) {
-    const { rate, toggleFavorite, isFavorite, emphasize, routeIndex = 0, departIndex = 0, onStartDragging, onEndDragging } = props;
+    const { rate, toggleFavorite, isFavorite, emphasize, setEmphasize, routeIndex = 0, departIndex = 0, onStartDragging, onEndDragging } = props;
     const [ expandText, setExpandText ] = useState(false);
 
     const attributes = _.get(rate, 'attributes.okargoOffer');
@@ -51,6 +52,7 @@ function DetailsCard(props) {
                     section={section}
                     rate={rate}
                     emphasize={emphasize}
+                    setEmphasize={setEmphasize}
                     onStartDragging={onStartDragging}
                     onEndDragging={onEndDragging}
                 />
@@ -95,7 +97,7 @@ function DetailsCard(props) {
 }
 
 function OkargoSingleFieldDetails(props) {
-    const { rate, field, value, emphasize, onStartDragging, onEndDragging } = props;
+    const { rate, field, value, emphasize, setEmphasize, onStartDragging, onEndDragging } = props;
 
     const [, drag] = useDrag(() => ({
         type: 'RateCardSingleRate',
@@ -149,7 +151,7 @@ function OkargoSingleFieldDetails(props) {
                 <Box sx={{ padding: '0px 22px' }}>
                 |
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                     <Box sx={{ fontSize: '12px', fontWeight: emphasize ? '800' : '400', marginBottom: '6px' }}>
                         {CurrencyList.get(value.currency)?.symbol || value.currency}{value.value.toLocaleString(undefined, {minimumFractionDigits: 2})}
                         {field.type === 'per-unit' || field.type === 'per-unit-type' ? ' / product' : ''}
@@ -160,6 +162,9 @@ function OkargoSingleFieldDetails(props) {
                         {field.title}
                     </Box>
                 </Box>
+                {setEmphasize && (
+                    <Switch checked={emphasize} onChange={() => setEmphasize(!emphasize)} />
+                )}
             </Box>
         </Box>
     )
@@ -168,7 +173,7 @@ function OkargoSingleFieldDetails(props) {
 export default DetailsCard;
 
 function SectionDetails(props) {
-    const { section, rate, onStartDragging, onEndDragging, emphasize } = props;
+    const { section, rate, onStartDragging, onEndDragging, emphasize, setEmphasize } = props;
 
     const _rate = useRef(rate);
     _rate.current = rate;
@@ -225,6 +230,15 @@ function SectionDetails(props) {
                             field={field}
                             value={value}
                             emphasize={!!(emphasize || []).find(e => e.rateId === rate.id && e.fieldId === field.id)}
+                            setEmphasize={!setEmphasize ? null : emphasized => {
+                                const newEmphasize = emphasize || [];
+                                if (emphasized) {
+                                    newEmphasize.push({ rateId: rate.id, fieldId: field.id });
+                                } else {
+                                    newEmphasize.splice(newEmphasize.findIndex(e => e.rateId === rate.id && e.fieldId === field.id), 1);
+                                }
+                                setEmphasize(_.uniqWith(newEmphasize, _.isEqual));
+                            }}
                             onStartDragging={onStartDragging}
                             onEndDragging={onEndDragging}
                         />

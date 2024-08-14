@@ -19,10 +19,11 @@ export const Primary = {
     name: 'Primary',
     render: () => {
         const [ favorites, setFavorites ] = useState(false);
+        const [ emphasize, setEmphasize ] = useState([]);
 
         return (
             <DndProvider backend={HTML5Backend}>
-                <DetailsCard rate={EXPECTED_RESPONSE[0]} toggleFavorite={() => setFavorites(!favorites)} isFavorite={favorites} emphasize={[]} />
+                <DetailsCard rate={EXPECTED_RESPONSE[0]} toggleFavorite={() => setFavorites(!favorites)} isFavorite={favorites} emphasize={emphasize} setEmphasize={setEmphasize} />
             </DndProvider>
         )
     }

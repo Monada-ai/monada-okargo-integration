@@ -231,7 +231,7 @@ function SectionDetails(props) {
                             value={value}
                             emphasize={!!(emphasize || []).find(e => e.rateId === rate.id && e.fieldId === field.id)}
                             setEmphasize={!setEmphasize ? null : emphasized => {
-                                const newEmphasize = emphasize || [];
+                                const newEmphasize = _.cloneDeep(emphasize || []);
                                 if (emphasized) {
                                     newEmphasize.push({ rateId: rate.id, fieldId: field.id });
                                 } else {

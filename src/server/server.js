@@ -80,15 +80,18 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                 .filter(charge => charge.chargeType !== 'Source' || charge.type !== 'Incl')
                 .filter(charge => charge.sizeTypeId === null || charge.sizeTypeId === CONVERT_PRODUCT_TYPE[product.type].sizeTypes[0].sizeTypeId);
 
-            const fields = charges.map(charge => ({ 
-                id: uuidv4(),
-                title: charge.chargeName, 
-                type: charge.unit === 'Specific' ? 'per-unit' : 'flat', 
-                sectionTitle: charge.application, 
-                values: {
-                    [charge.unit === 'Specific' ? productId : 'flat']: { value: charge.amount || 0, currency: charge.currency || 'USD' }
+            const fields = charges.map(charge => {
+                const isPerUnit = ['SPECIFIC', 'CTR', 'TEU'].includes((charge.unit || '').toUpperCase());
+                return { 
+                    id: uuidv4(),
+                    title: charge.chargeName, 
+                    type: isPerUnit ? 'per-unit' : 'flat', 
+                    sectionTitle: charge.application, 
+                    values: {
+                        [isPerUnit ? productId : 'flat']: { value: charge.amount || 0, currency: charge.currency || 'USD' }
+                    }
                 }
-            }));
+            });
 
             const fieldsGrouped = _.groupBy(fields, f => f.sectionTitle);
 

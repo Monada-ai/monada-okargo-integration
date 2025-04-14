@@ -27,7 +27,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             result = await Promise.all(_.flatten(_.map(jointProducts, async (sizeTypes, containerType) => {
                 const body = {
                     containerType, sizeTypes,
-                    chargeCriterias: null, //see Criteria
+                    chargeCriterias: _.some(products, p => p.dangerous) ? ['Hazardous'] : null, //see Criteria
                     OriginShippingType: sourcePort.type === 'unlocode' ? 'door' : 'Cy',
                     DestinationShippingType: destinationPort.type === 'unlocode' ? 'door' : 'Cy',
                     origin: { code: sourcePort.id },

@@ -70,7 +70,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             const creationDate = offer.chargeSet.creationDate;
             const ratesPriceType = offer.chargeSet.ratesPriceType;
             const dateBegin = new Date(offer.chargeSet.dateBegin);
-            const quotValidity = new Date(offer.chargeSet.quotValidity || offer.chargeSet.dateEnd);
+            const quotValidity = new Date(offer.chargeSet.quotValidity || offer.chargeSet.freightValidity || offer.chargeSet.dateEnd);
             const departs = _.get(offer, 'routes[0].departs', []);
             const transShipments = _.get(offer, 'routes[0].transShipments', []);
             const transitTime = _.get(offer, 'routes[0].transitTime', []);

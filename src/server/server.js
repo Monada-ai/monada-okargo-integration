@@ -85,7 +85,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
                 return { 
                     id: uuidv4(),
                     title: charge.chargeName, 
-                    type: isPerUnit ? 'per-unit' : 'flat', 
+                    type: isPerUnit ? 'per-unit-type' : 'flat', 
                     sectionTitle: charge.application, 
                     values: {
                         [isPerUnit ? productId : 'flat']: { value: charge.amount || 0, currency: charge.currency || 'USD' }

@@ -1019,7 +1019,7 @@
                                 {
                                     "id": "101",
                                     "title": "FRT",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 1300,
@@ -1030,7 +1030,7 @@
                                 {
                                     "id": "108",
                                     "title": "BAF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 150,
@@ -1041,7 +1041,7 @@
                                 {
                                     "id": "109",
                                     "title": "CSS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 9,
@@ -1052,7 +1052,7 @@
                                 {
                                     "id": "110",
                                     "title": "ETS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 15,
@@ -1063,7 +1063,7 @@
                                 {
                                     "id": "111",
                                     "title": "ESO",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 14,
@@ -1085,7 +1085,7 @@
                                 {
                                     "id": "102",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 1376,
@@ -1096,7 +1096,7 @@
                                 {
                                     "id": "103",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 111,
@@ -1107,7 +1107,7 @@
                                 {
                                     "id": "104",
                                     "title": "ALF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 136,
@@ -1140,7 +1140,7 @@
                                 {
                                     "id": "105",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 200,
@@ -1151,7 +1151,7 @@
                                 {
                                     "id": "106",
                                     "title": "SFC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 5,
@@ -1162,7 +1162,7 @@
                                 {
                                     "id": "107",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "100": {
                                             "value": 15,
@@ -2337,7 +2337,7 @@
                                 {
                                     "id": "122",
                                     "title": "FRT",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 1300,
@@ -2348,7 +2348,7 @@
                                 {
                                     "id": "129",
                                     "title": "BAF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 152,
@@ -2359,7 +2359,7 @@
                                 {
                                     "id": "130",
                                     "title": "CSS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 9,
@@ -2370,7 +2370,7 @@
                                 {
                                     "id": "131",
                                     "title": "ETS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 15,
@@ -2381,7 +2381,7 @@
                                 {
                                     "id": "132",
                                     "title": "ESO",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 14,
@@ -2403,7 +2403,7 @@
                                 {
                                     "id": "123",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 1376,
@@ -2414,7 +2414,7 @@
                                 {
                                     "id": "124",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 111,
@@ -2425,7 +2425,7 @@
                                 {
                                     "id": "125",
                                     "title": "ALF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 136,
@@ -2458,7 +2458,7 @@
                                 {
                                     "id": "126",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 200,
@@ -2469,7 +2469,7 @@
                                 {
                                     "id": "127",
                                     "title": "SFC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 5,
@@ -2480,7 +2480,7 @@
                                 {
                                     "id": "128",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "121": {
                                             "value": 15,
@@ -3526,7 +3526,7 @@
                                 {
                                     "id": "143",
                                     "title": "FRT",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 2250,
@@ -3537,7 +3537,7 @@
                                 {
                                     "id": "150",
                                     "title": "BAF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 300,
@@ -3548,7 +3548,7 @@
                                 {
                                     "id": "151",
                                     "title": "CSS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 9,
@@ -3559,7 +3559,7 @@
                                 {
                                     "id": "152",
                                     "title": "ETS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 30,
@@ -3570,7 +3570,7 @@
                                 {
                                     "id": "153",
                                     "title": "ESO",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 14,
@@ -3592,7 +3592,7 @@
                                 {
                                     "id": "144",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 1376,
@@ -3603,7 +3603,7 @@
                                 {
                                     "id": "145",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 111,
@@ -3614,7 +3614,7 @@
                                 {
                                     "id": "146",
                                     "title": "ALF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 207,
@@ -3647,7 +3647,7 @@
                                 {
                                     "id": "147",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 200,
@@ -3658,7 +3658,7 @@
                                 {
                                     "id": "148",
                                     "title": "SFC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 5,
@@ -3669,7 +3669,7 @@
                                 {
                                     "id": "149",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "142": {
                                             "value": 15,
@@ -4844,7 +4844,7 @@
                                 {
                                     "id": "164",
                                     "title": "FRT",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 2250,
@@ -4855,7 +4855,7 @@
                                 {
                                     "id": "171",
                                     "title": "BAF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 304,
@@ -4866,7 +4866,7 @@
                                 {
                                     "id": "172",
                                     "title": "CSS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 9,
@@ -4877,7 +4877,7 @@
                                 {
                                     "id": "173",
                                     "title": "ETS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 30,
@@ -4888,7 +4888,7 @@
                                 {
                                     "id": "174",
                                     "title": "ESO",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 14,
@@ -4910,7 +4910,7 @@
                                 {
                                     "id": "165",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 1376,
@@ -4921,7 +4921,7 @@
                                 {
                                     "id": "166",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 111,
@@ -4932,7 +4932,7 @@
                                 {
                                     "id": "167",
                                     "title": "ALF",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 207,
@@ -4965,7 +4965,7 @@
                                 {
                                     "id": "168",
                                     "title": "THC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 200,
@@ -4976,7 +4976,7 @@
                                 {
                                     "id": "169",
                                     "title": "SFC",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 5,
@@ -4987,7 +4987,7 @@
                                 {
                                     "id": "170",
                                     "title": "SPS",
-                                    "type": "per-unit",
+                                    "type": "per-unit-type",
                                     "values": {
                                         "163": {
                                             "value": 15,

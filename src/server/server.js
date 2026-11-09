@@ -135,7 +135,7 @@ function Server({ configuration = {}, serverUri = 'https://app.okargo.com/api/Ex
             }
         })))));
 
-        return ret.filter(r => r.offer.transitDates.length > 0);
+        return ret.filter(r => r.type === 'contract' || r.offer.transitDates.length > 0);
     }
 
     this.run = run;

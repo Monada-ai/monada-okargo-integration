@@ -60,6 +60,30 @@ test('[Task] Main works with multiple products', async () => {
     expect(response).toEqual(EXPECTED_MULTIPLE_RESPONSE);
 });
 
+const okargoOffer = (ratesPriceType, departs) => ({
+    chargeSet: {
+        chargeSetId: 1,
+        ratesPriceType,
+        creationDate: '2026-11-09T00:00:00Z',
+        dateBegin: '2026-11-01T00:00:00',
+        dateEnd: '2026-11-30T00:00:00',
+        freightValidity: '2026-11-30T00:00:00',
+        charges: [],
+    },
+    routes: [{ transitTime: 14, transShipments: [], departs }],
+});
+
+test.each([
+    ['keeps a contract with no departures', 'Contract', [], 1],
+    ['drops a spot offer with no departures', 'Spot', [], 0],
+])('[Task] %s', async (_name, priceType, departs, expectedCount) => {
+    server.use(http.post('http://localhost:9999/api/Export/v2/GetOnlineCarrierOffers', () => HttpResponse.json({
+        carrierOffers: [{ carrier: { name: 'CMA CGM', code: 'CMA' }, offers: [okargoOffer(priceType, departs)] }],
+    })));
+    const okargo = new OkargoServer({ configuration: { token: 'TOKEN', platforms: [] }, serverUri: 'http://localhost:9999/api/Export/v2/GetOnlineCarrierOffers', uuidv4 });
+    expect(await run(okargo)).toHaveLength(expectedCount);
+});
+
 async function run(server) {
     return server.run({
         sourcePort: { id: 'PTLEI' },
